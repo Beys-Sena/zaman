@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topluluk - Zamanda Yolculuk</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --secondary-color: #4A45B1;
+            --dark-color: #2A2A72;
+            --light-color: #F5F5FF;
+            --accent-color: #FF6584;
+            --text-color: #333;
+            --gray-light: #f7f7f7;
+            --gray: #ddd;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 15px;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo svg {
+            animation: pulse 3s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+        
+        .logo h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+        
+        nav a:hover::after {
+            width: 70%;
+        }
+        
+        /* Section Styles */
+        section {
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+        
+        section > p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        /* Post Form Styles */
+        .post-form {
+            background-color: var(--gray-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            resize: vertical;
+            min-height: 100px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Posts Styles */
+        .posts {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .post {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .post:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .post > p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .comments {
+            background-color: var(--gray-light);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .comment-input {
+            min-height: 60px;
+        }
+        
+        .comment {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            border-radius: 15px 15px 0 0;
+            margin-top: 40px;
+        }
+        
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 0;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 20px;
+                margin: 25px auto;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Animation for new content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <svg width="50" height="50" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="1" opacity="0.5"/>
+                <rect x="48" y="25" width="4" height="25" fill="white" rx="2"/>
+                <rect x="48" y="25" width="4" height="25" fill="white" rx="2" transform="rotate(90 50 50)"/>
+            </svg>
+            <h1>ZAMANDA YOLCULUK</h1>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="#">Dönemler</a></li>
+                <li><a href="#">Galeri</a></li>
+                <li><a href="topluluk.html" class="active">Topluluk</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="container">
+        <h2>Topluluk</h2>
+        <p>Geçmişin büyüsünü paylaşan yolcular burada buluşuyor! Zaman yolculuğu deneyimlerinizi paylaşın, yorum yapın ve diğer gezginlerin hikayelerine göz atın.</p>
+        
+        <div class="post-form">
+            <textarea id="postContent" placeholder="Zaman yolculuğu deneyiminizi paylaşın..."></textarea>
+            <button onclick="addPost()"><i class="fas fa-paper-plane"></i> Paylaş</button>
+        </div>
+        
+        <div class="posts" id="posts">
+            <!-- Örnek paylaşım -->
+            <div class="post">
+                <p>1920'lerin İstanbul'una yaptığım yolculukta, Beyoğlu'nda tramvay seslerinin eşlik ettiği sokaklarda dolaşmak inanılmazdı. O dönemin kültürel atmosferini solumak beni derinden etkiledi.</p>
+                <div class="comments">
+                    <textarea class="comment-input" placeholder="Yorum yap..."></textarea>
+                    <button onclick="addComment(this)"><i class="fas fa-comment"></i> Yorum Yap</button>
+                    <p class="comment">Ben de geçen ay aynı döneme gitmiştim, gerçekten etkileyici bir deneyimdi!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="container">
+        <p>&copy; 2025 Zamanda Yolculuk. Tüm hakları saklıdır.</p>
+    </footer>
+    
+    <script>
+        function addPost() {
+            const postContent = document.getElementById('postContent').value;
+            if (postContent.trim() === '') return;
+            
+            const postDiv = document.createElement('div');
+            postDiv.classList.add('post', 'fade-in');
+            postDiv.innerHTML = `
+                <p>${postContent}</p>
+                <div class="comments">
+                    <textarea class="comment-input" placeholder="Yorum yap..."></textarea>
+                    <button onclick="addComment(this)"><i class="fas fa-comment"></i> Yorum Yap</button>
+                </div>
+            `;
+            document.getElementById('posts').prepend(postDiv);
+            document.getElementById('postContent').value = '';
+        }
+        
+        function addComment(button) {
+            const commentInput = button.previousElementSibling;
+            if (commentInput.value.trim() === '') return;
+            
+            const comment = document.createElement('p');
+            comment.classList.add('comment', 'fade-in');
+            comment.textContent = commentInput.value;
+            button.parentElement.appendChild(comment);
+            commentInput.value = '';
+        }
+    </script>
+</body>
+</html>
