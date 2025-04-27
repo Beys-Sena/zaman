@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - Zamanda Yolculuk</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a1c71;
+            --secondary-color: #d76d77;
+            --accent-color: #ffaf7b;
+            --dark-color: #1a1a2e;
+            --light-color: #f5f5f7;
+            --text-color: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--light-color);
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-buttons button {
+            padding: 8px 15px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--light-color);
+            border: 1px solid var(--light-color) !important;
+        }
+
+        .signup-btn {
+            background: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .signup-btn:hover {
+            background-color: #ffc107;
+        }
+
+        .auth-buttons button a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .page-title h2 {
+            font-size: 42px;
+            color: var(--light-color);
+            margin-bottom: 15px;
+        }
+
+        .page-title p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: white;
+            border-radius: 30px 30px 0 0;
+            padding: 60px 0;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            padding: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 18px;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .info-content p, .info-content a {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .info-content a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links-contact {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-links-contact a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-links-contact a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(215, 109, 119, 0.3);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: #f5f5f7;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form h3 {
+            font-size: 28px;
+            color: var(--dark-color);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(58, 28, 113, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            padding: 14px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(215, 109, 119, 0.3);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 60px 0;
+            background-color: #f5f5f7;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder {
+            background-color: #e0e0e0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-items {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background-color: #f5f5f7;
+            font-weight: 600;
+            color: var(--dark-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: #e8e8e8;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: white;
+        }
+
+        .faq-answer p {
+            padding: 20px 0;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0 30px;
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-logo h3 {
+            font-size: 20px;
+        }
+
+        .footer-about p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                order: 2;
+            }
+
+            .contact-form {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            nav {
+                margin: 20px 0;
+            }
+
+            .page-title h2 {
+                font-size: 32px;
+            }
+
+            .auth-buttons {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .page-title h2 {
+                font-size: 28px;
+            }
+
+            .section-title h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <svg width="50" height="50" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="1" opacity="0.5"/>
+                <rect x="48" y="25" width="4" height="25" fill="white" rx="2"/>
+                <rect x="48" y="25" width="4" height="25" fill="white" rx="2" transform="rotate(90 50 50)"/>
+            </svg>
+            <h1>ZAMANDA YOLCULUK</h1>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="donem.html">Dönemler</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="topluluk.html">Topluluk</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="iletisim.html">İletişim</a></li>
+            </ul>
+        </nav>
+
+        <div class="auth-buttons">
+            <button class="login-btn"><a href="login.html">Giriş Yap</a></button>
+            <button class="signup-btn"><a href="register.html">Kayıt Ol</a></button>
+        </div>
+    </header>
+
+    <div class="page-title container">
+        <h2>İletişim</h2>
+        <p>Tarih ve sanat hakkında sorularınız mı var? Zamanda Yolculuk ekibine ulaşın, fikirlerinizi paylaşın veya topluluğumuza katılın.</p>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Bize Ulaşın</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Adres</h4>
+                            <p>Zaman Sokak No:42, Kültür Mahallesi</p>
+                            <p>34000 Beyoğlu, İstanbul</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:+902121234567">+90 212 123 45 67</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>E-posta</h4>
+                            <p><a href="mailto:iletisim@zamandayolculuk.com">iletisim@zamandayolculuk.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Çalışma Saatleri</h4>
+                            <p>Pazartesi - Cuma: 09:00 - 18:00</p>
+                            <p>Hafta sonu: 10:00 - 15:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links-contact">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>İletişim Formu</h3>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="name">İsim Soyisim</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-posta Adresiniz</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Konu</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mesajınız</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Mesaj Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <p>Harita Görüntüsü Buraya Gelecek</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Sıkça Sorulan Sorular</h3>
+                <p>Kullanıcılarımızın en çok merak ettiği soruları ve cevaplarını bulabilirsiniz.</p>
+            </div>
+            
+            <div class="faq-items">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Zamanda Yolculuk platformunun amacı nedir?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Zamanda Yolculuk, farklı tarih dönemlerindeki sanat, müzik, moda ve kültürel öğeleri keşfetmenize, dijital bir zaman yolculuğu deneyimi yaşamanıza olanak sağlayan interaktif bir platformdur. Amacımız, tarihi dönemleri eğlenceli ve eğitici bir şekilde deneyimlemenizi sağlamaktır.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Platformda nasıl üye olabilirim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Üye olmak için sağ üst köşedeki "Kayıt Ol" butonuna tıklayarak e-posta adresiniz ve kişisel bilgilerinizle hızlıca kayıt olabilirsiniz. Üyelik tamamen ücretsizdir ve size platformun tüm özelliklerine erişim sağlar.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Kendi dönem fotoğraflarımı veya anılarımı paylaşabilir miyim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Evet, topluluğumuza üye olduktan sonra "Topluluk" sayfası üzerinden ailenize ait tarihi fotoğrafları, belgeleri veya anıları paylaşabilirsiniz. Bu paylaşımlar moderasyon sürecinden geçtikten sonra sitede yerini alacaktır.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>İçeriklerinize nasıl katkıda bulunabilirim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Platformumuza içerik katkısında bulunmak için iletisim@zamandayolculuk.com adresine e-posta gönderebilir veya bu sayfadaki iletişim formunu doldurabilirsiniz. Ekibimiz sizinle iletişime geçecek ve işbirliği olanaklarını değerlendirecektir.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>İçeriklerinizi eğitim amaçlı kullanabilir miyim?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Platformumuzdaki içerikler eğitim amaçlı kullanıma açıktır. Ancak ticari olmayan kullanımlarda kaynak belirtmeniz gerekmektedir. Ticari kullanımlar için lütfen iletişime geçin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <svg width="40" height="40" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="1" opacity="0.5"/>
+                            <rect x="48" y="25" width="4" height="25" fill="white" rx="2"/>
+                            <rect x="48" y="25" width="4" height="25" fill="white" rx="2" transform="rotate(90 50 50)"/>
+                        </svg>
+                        <h3>ZAMANDA YOLCULUK</h3>
+                    </div>
+                    <p>Tarih ve sanatın büyülü dünyasında yolculuğa çıkmak, farklı dönemleri keşfetmek ve geçmişin zenginliklerini paylaşmak için oluşturulmuş interaktif bir platform.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="donem.html">Dönemler</a></li>
+                        <li><a href="galeri.html">Galeri</a></li>
+                        <li><a href="topluluk.html">Topluluk</a></li>
+                        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Destek</h4>
+                    <ul>
+                        <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                        <li><a href="#">Kullanım Şartları</a></li>
+                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="#">Çerez Politikası</a></li>
+                        <li><a href="#">Yardım Merkezi</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zamanda Yolculuk. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Açılır-Kapanır Fonksiyonu
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.parentElement;
+                    faqItem.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
